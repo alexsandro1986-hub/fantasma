@@ -6,17 +6,18 @@ const prisma = new PrismaClient()
 async function main() {
     const result = await prisma.usuario.create({
         data: {
-            nomeusuario: "Handrai",
+            nomeusuario: "alex",
             tiposanguineo: "AB-",
             idadeusuairo: 40,
-            emailusuario: "handrai@gmail.com",
+            emailusuario: "aaa",
             senhausuario:"avfd",
+            cpf: "064",
 
             possuialergias:{
                 create:{
                     alergias: {
                         connect: {
-                            alergias: "Gluten"
+                            alergias: "fuego"
                                 }
                  
                             }
@@ -54,7 +55,7 @@ async function main() {
             },
             telusuario: {
                 create: {
-                    telefoneusuario: 234567940
+                    telefoneusuario: "234567940"
                 }
             }
 
@@ -73,7 +74,7 @@ main()
 //     const result = await prisma.alergias.create({
 //         data: {
             
-//                     alergias:""
+//                     alergias:"fuego"
                  
 //                 }
 //             })

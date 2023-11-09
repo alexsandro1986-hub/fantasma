@@ -15,91 +15,84 @@ model adm {
 
 model alergias {
   cod_alergias   Int              @id @default(autoincrement())
-  alergias       String?          @db.VarChar(60) @unique
-  possuialergias possuialergias[] 
+  alergias       String?          @unique @db.VarChar(60)
+  possuialergias possuialergias[]
 }
 
 model comorbidade {
   cod_comorbidade Int     @id @default(autoincrement())
   comorbidade     String? @db.VarChar(60)
   fk_cod_usuario  String
-  usuario         usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario],onDelete: Cascade)
+  usuario         usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario], onDelete: Cascade)
 }
 
 model contatoemergencia {
-  cod_contatoemergencia  Int                    @id @default(autoincrement())
-  nomecontatoemergencia  String?                @db.VarChar(40)
-  emailcontatoemergencia String?                @db.VarChar(60)
-  telefoneemergencia     String?           @db.VarChar(40)
+  cod_contatoemergencia  Int     @id @default(autoincrement())
+  nomecontatoemergencia  String? @db.VarChar(40)
+  emailcontatoemergencia String? @db.VarChar(60)
+  telefoneemergencia     String? @db.VarChar(40)
   fk_cod_usuario         String
-  usuario                usuario                @relation(fields: [fk_cod_usuario], references: [cod_usuario],onDelete: Cascade)
-
+  usuario                usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario], onDelete: Cascade)
 }
 
 model doadororgao {
-  cod_doadororgao Int        @id @default(autoincrement())
-  doadororgao     String?    @db.VarChar(20)
+  cod_doadororgao Int     @id @default(autoincrement())
+  doadororgao     String? @db.VarChar(20)
   fk_cod_usuario  String
-  usuario         usuario    @relation(fields: [fk_cod_usuario], references: [cod_usuario],onDelete: Cascade)
+  usuario         usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario], onDelete: Cascade)
 }
 
 model doadorsangue {
-  cod_doadorsangue Int        @id @default(autoincrement())
-  doadorsangue     String?    @db.VarChar(20)
+  cod_doadorsangue Int     @id @default(autoincrement())
+  doadorsangue     String? @db.VarChar(20)
   fk_cod_usuario   String
-  usuario          usuario    @relation(fields: [fk_cod_usuario], references: [cod_usuario],onDelete: Cascade)
+  usuario          usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario], onDelete: Cascade)
 }
-
 
 model enderecousuario {
   logradourousuario String? @db.VarChar(60)
   numerocasausuario Int?
   ncepusuario       Int?
-  fk_cod_usuario    String @unique
-  usuario           usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario],onDelete: Cascade)
-
-
+  fk_cod_usuario    String  @unique
+  usuario           usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario], onDelete: Cascade)
 }
-
 
 model possuialergias {
   fk_cod_alergias Int
-  fk_cod_usuario  String @unique
-  alergias        alergias @relation(fields: [fk_cod_alergias], references: [cod_alergias],onDelete: Cascade)
-  usuario         usuario  @relation(fields: [fk_cod_usuario], references: [cod_usuario],onDelete: Cascade)
+  fk_cod_usuario  String   @unique
+  alergias        alergias @relation(fields: [fk_cod_alergias], references: [cod_alergias], onDelete: Cascade)
+  usuario         usuario  @relation(fields: [fk_cod_usuario], references: [cod_usuario], onDelete: Cascade)
 }
 
 model telusuario {
-  telefoneusuario Int?
-  fk_cod_usuario  String @unique
-  usuario         usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario],onDelete: Cascade)
-
-
+  telefoneusuario String?
+  fk_cod_usuario  String  @unique
+  usuario         usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario], onDelete: Cascade)
 }
 
-
 model tratamento {
-  cod_tratamento String    @id @default(uuid())
+  cod_tratamento String  @id 
   enfermidade    String? @db.VarChar(60)
   periodo        String? @db.VarChar(60)
   droga          String? @db.VarChar(60)
-  fk_cod_usuario String @unique
-  usuario   usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario],onDelete: Cascade)
+  fk_cod_usuario String  @unique
+  usuario        usuario @relation(fields: [fk_cod_usuario], references: [cod_usuario], onDelete: Cascade)
 }
 
 model usuario {
-  cod_usuario          String                    @id @default(uuid())
-  nomeusuario          String                 @db.VarChar(40)
-  tiposanguineo        String?                @db.VarChar(10)
-  idadeusuairo         Int?
-  emailusuario         String?                @db.VarChar(40)
-  senhausuario         String?                @db.VarChar(40)
-  comorbidade          comorbidade[]
-  contatoemergencia    contatoemergencia[]
-  doadororgao          doadororgao[]
-  doadorsangue         doadorsangue[]
-   enderecousuario      enderecousuario[]     
-  possuialergias       possuialergias[]      
-  telusuario           telusuario[]         
-  tratamento           tratamento?
+  cod_usuario       String              @id @default(uuid())
+  nomeusuario       String              @db.VarChar(40)
+  tiposanguineo     String?             @db.VarChar(10)
+  idadeusuairo      Int?
+  emailusuario      String?             @db.VarChar(40)
+  senhausuario      String?             @db.VarChar(40)
+  cpf               String?             @unique
+  comorbidade       comorbidade[]
+  contatoemergencia contatoemergencia[]
+  doadororgao       doadororgao[]
+  doadorsangue      doadorsangue[]
+  enderecousuario   enderecousuario?
+  possuialergias    possuialergias?
+  telusuario        telusuario?
+  tratamento        tratamento?
 }
